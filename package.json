@@ -10,16 +10,34 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extension.filterLogs"
+        "onCommand:extension.filterLogs",
+    "onView:logFilter.filterPanel"
   ],
   "main": "./dist/extension.js",
-  "contributes": {
+"contributes": {
     "commands": [
       {
         "command": "extension.filterLogs",
         "title": "Filter Logs"
       }
-    ]
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "logFilter",
+          "title": "Log Filter",
+          "icon": "resources/icon.png"
+        }
+      ]
+    },
+    "views": {
+      "logFilter": [
+        {
+          "id": "logFilter.filterPanel",
+          "name": "Filter Panel"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
