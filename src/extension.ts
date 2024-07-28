@@ -30,7 +30,6 @@
 
 
 // ----
-
 import * as vscode from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -41,9 +40,19 @@ export function activate(context: vscode.ExtensionContext) {
       return;
     }
 
+    const filterPhrase = await vscode.window.showInputBox({
+      prompt: 'Enter the phrase to filter logs by',
+      placeHolder: 'ERROR'
+    });
+
+    if (!filterPhrase) {
+      vscode.window.showErrorMessage('No filter phrase provided');
+      return;
+    }
+
     const document = editor.document;
     const text = document.getText();
-    const filteredText = filterLogs(text);
+    const filteredText = filterLogs(text, filterPhrase);
 
     const newDocument = await vscode.workspace.openTextDocument({
       content: filteredText,
@@ -55,9 +64,9 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(disposable);
 }
 
-function filterLogs(text: string): string {
+function filterLogs(text: string, phrase: string): string {
   const lines = text.split('\n');
-  const filteredLines = lines.filter(line => line.includes('ERROR')); // Пример фильтрации по ключевому слову "ERROR"
+  const filteredLines = lines.filter(line => line.includes(phrase));
   return filteredLines.join('\n');
 }
 
