@@ -9,13 +9,15 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:extension.filterLogs"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "filter-log.helloWorld",
-        "title": "Hello World"
+        "command": "extension.filterLogs",
+        "title": "Filter Logs"
       }
     ]
   },
