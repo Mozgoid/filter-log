@@ -1,21 +1,6 @@
 import * as vscode from 'vscode';
-import { FilterPanel } from './panel';
-import { LogFilterDataProvider } from './logFilterDataProvider';
-
-
 
 export function activate(context: vscode.ExtensionContext) {
-
-	const logFilterProvider = new LogFilterDataProvider();
-	vscode.window.registerTreeDataProvider('logFilter.filterPanel', logFilterProvider);
-
-
-	context.subscriptions.push(
-		vscode.window.registerWebviewViewProvider(
-			FilterPanel.viewType,
-			new FilterPanel(context.extensionUri)
-		)
-	);
 
 	let disposable = vscode.commands.registerCommand('extension.filterLogs', async () => {
 		const editor = vscode.window.activeTextEditor;
@@ -23,14 +8,8 @@ export function activate(context: vscode.ExtensionContext) {
 			vscode.window.showErrorMessage('No active editor found');
 			return;
 		}
-		const filterPhrases = logFilterProvider.getFilterPhrases();
-		const whitelist = filterPhrases.whitelist;
-		const blacklist = filterPhrases.blacklist;
-
-		if (!whitelist) {
-			vscode.window.showErrorMessage('No filter phrase provided');
-			return;
-		}
+		
+		const { whitelist, blacklist } = getSettings();
 
 		const document = editor.document;
 		const text = document.getText();
@@ -44,6 +23,14 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	context.subscriptions.push(disposable);
+}
+
+// load settings from extension settings
+function getSettings() {
+	const config = vscode.workspace.getConfiguration('filterLogs');
+	const whitelist = config.get('whitelist', ['Aim']);
+	const blacklist = config.get('blacklist', []);
+	return { whitelist, blacklist };
 }
 
 
@@ -60,10 +47,5 @@ function filterLogs(text: string, whitelist: string[], blacklist: string[]): str
 	return filteredLines.join('\n');
 }
 
-// function filterLogs(text: string, phrase: string): string {
-// 	const lines = text.split('\n');
-// 	const filteredLines = lines.filter(line => line.includes(phrase));
-// 	return filteredLines.join('\n');
-// }
 
 export function deactivate() { }
