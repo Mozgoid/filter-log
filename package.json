@@ -2,7 +2,7 @@
   "name": "filter-log",
   "displayName": "filter-log",
   "description": "it filters log",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "Mozgoid",
   "repository": {
     "type": "git",
