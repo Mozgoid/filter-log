@@ -8,3 +8,8 @@
 
 Можно задать blacklist фразы, если в строке будет такая фраза, то она удалится вне зависимости от whitelist.
 
+## How to use
+
+В настройках расширения можно изменять whitelist и blacklist.
+
+После, выбрать лог файл, и в командах (`Shift+Cmd+P` on macOS or `Shift+Ctrl+P` on Windows and Linux) выбрать `Filter Logs`. Откроется отфильтрованный лог файл.
