@@ -27,12 +27,12 @@ export function activate(context: vscode.ExtensionContext) {
 
 // load settings from extension settings
 function getSettings() {
-	const config = vscode.workspace.getConfiguration('filterLogs');
-	const whitelist = config.get('whitelist', ['Aim']);
-	const blacklist = config.get('blacklist', []);
-	return { whitelist, blacklist };
+    const config = vscode.workspace.getConfiguration('filterLogs');
+    return {
+        whitelist: config.get<string[]>('whitelist', []),
+        blacklist: config.get<string[]>('blacklist', [])
+    };
 }
-
 
 function filterLogs(text: string, whitelist: string[], blacklist: string[]): string {
 	const lines = text.split('\n');
