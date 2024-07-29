@@ -1,15 +1,14 @@
 # filter-log README
-
-Это расширение "filter-log" для vscode. Он помогает удобно в больших лог файлах отсекать лишнее и видеть нужное. Наподобие (я надеюсь) logcat в андроиде.
+This is the "filter-log" extension for vscode. It helps to conveniently filter out unnecessary content and view the desired information in large log files. Similar to (hopefully) logcat in Android.
 
 ## Features
 
-Можно задать whitelist фразы, если в строке лога будет эта фраза то строка останется. Если нет, то уберется.
+You can set a whitelist of phrases, so if a log line contains any of these phrases, the line will be kept. If not, it will be removed.
 
-Можно задать blacklist фразы, если в строке будет такая фраза, то она удалится вне зависимости от whitelist.
+You can also set a blacklist of phrases, so if a log line contains any of these phrases, it will be removed regardless of the whitelist.
 
 ## How to use
 
-В настройках расширения можно изменять whitelist и blacklist.
+In the extension settings, you can modify the whitelist and blacklist.
 
-После, выбрать лог файл, и в командах (`Shift+Cmd+P` on macOS or `Shift+Ctrl+P` on Windows and Linux) выбрать `Filter Logs`. Откроется отфильтрованный лог файл.
+After that, select the log file and use the command palette (`Shift+Cmd+P` on macOS or `Shift+Ctrl+P` on Windows and Linux) to choose "Filter Logs". This will open the filtered log file.
